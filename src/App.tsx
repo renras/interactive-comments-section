@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import data from "./data";
+import Button from "./Components/Button";
 
 interface CurrentUser {
   image: {
@@ -15,12 +16,12 @@ function App() {
   return (
     <div className="App">
       <div>
-        <img
-          src={currentUser.image.png}
-          style={{ width: "50px", height: "auto" }}
-          alt="current-user-avatar"
-        />
+        <img src={currentUser.image.png} alt="current-user-avatar" />
       </div>
+      <form>
+        <textarea className="resize-none"></textarea>
+        <Button>SEND</Button>
+      </form>
     </div>
   );
 }
