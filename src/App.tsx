@@ -1,6 +1,6 @@
-import { useState } from "react";
 import data from "./data";
 import Button from "./Components/Button";
+import Avatar from "./Components/Avatar";
 
 interface CurrentUser {
   image: {
@@ -11,17 +11,17 @@ interface CurrentUser {
 }
 
 function App() {
-  const [currentUser, setCurrentUser] = useState<CurrentUser>(data.currentUser);
+  const currentUser: CurrentUser = data.currentUser;
 
   return (
     <div className="App">
       <div>
-        <img src={currentUser.image.png} alt="current-user-avatar" />
+        <Avatar src={currentUser.image.png} alt="current-user-avatar" />
+        <form>
+          <textarea className="resize-none"></textarea>
+          <Button>SEND</Button>
+        </form>
       </div>
-      <form>
-        <textarea className="resize-none"></textarea>
-        <Button>SEND</Button>
-      </form>
     </div>
   );
 }
