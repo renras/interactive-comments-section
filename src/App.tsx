@@ -1,6 +1,5 @@
 import data from "./data";
-import Button from "./Components/Button";
-import Avatar from "./Components/Avatar";
+import CurrentUserContainer from "./Components/CurrentUserContainer";
 
 interface CurrentUser {
   image: {
@@ -15,13 +14,7 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        <Avatar src={currentUser.image.png} alt="current-user-avatar" />
-        <form>
-          <textarea className="resize-none"></textarea>
-          <Button>SEND</Button>
-        </form>
-      </div>
+      <CurrentUserContainer currentUser={currentUser} />
     </div>
   );
 }
