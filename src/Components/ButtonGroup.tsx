@@ -10,13 +10,35 @@ interface Props {
 
 const ButtonGroup = ({ score, className }: Props) => {
   const [value, setValue] = useState(score);
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDisliked] = useState(false);
 
   const decrementHandler = () => {
-    setValue(value - 1);
+    if (!disliked && liked) {
+      setValue(value - 1);
+      setLiked(false);
+      return;
+    }
+
+    if (!disliked) {
+      setValue(value - 1);
+      setDisliked(true);
+      setLiked(false);
+    }
   };
 
   const incrementHandler = () => {
-    setValue(value + 1);
+    if (!liked && disliked) {
+      setValue(value + 1);
+      setDisliked(false);
+      return;
+    }
+
+    if (!liked) {
+      setValue(value + 1);
+      setLiked(true);
+      setDisliked(false);
+    }
   };
 
   return (
