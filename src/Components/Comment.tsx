@@ -9,6 +9,7 @@ interface Props {
     content: string;
     createdAt: string;
     score: number;
+    replyingTo?: string;
     user: {
       image: {
         png: string;
@@ -41,7 +42,14 @@ const Comment = ({ comment }: Props) => {
         <p className="font-medium text-dark-blue">{comment.user.username}</p>
         <p className="text-grayish-blue">{comment.createdAt}</p>
       </div>
-      <p className="col-span-2 text-grayish-blue">{comment.content}</p>
+      <p className="col-span-2 text-grayish-blue">
+        {comment.replyingTo && (
+          <span className="text-moderate-blue font-medium">
+            @{comment.replyingTo}
+          </span>
+        )}{" "}
+        {comment.content}
+      </p>
       <ButtonGroup
         score={comment.score}
         className="col-span-1 justify-self-start"
