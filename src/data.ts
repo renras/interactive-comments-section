@@ -24,8 +24,8 @@ const data = {
       score: 12,
       user: {
         image: {
-          png: { amyrobsonPNG },
-          webp: { amyrobsonWEBP },
+          png: amyrobsonPNG,
+          webp: amyrobsonWEBP,
         },
         username: "amyrobson",
       },
@@ -39,8 +39,8 @@ const data = {
       score: 5,
       user: {
         image: {
-          png: { maxblagunPNG },
-          webp: { maxblagunWEBP },
+          png: maxblagunPNG,
+          webp: maxblagunWEBP,
         },
         username: "maxblagun",
       },
