@@ -54,8 +54,8 @@ const data = {
           replyingTo: "maxblagun",
           user: {
             image: {
-              png: "./Assets/images/avatars/image-ramsesmiron.png",
-              webp: "./Assets/images/avatars/image-ramsesmiron.webp",
+              png: ramsesmironPNG,
+              webp: ramsesmironWEBP,
             },
             username: "ramsesmiron",
           },
@@ -69,8 +69,8 @@ const data = {
           replyingTo: "ramsesmiron",
           user: {
             image: {
-              png: ramsesmironPNG,
-              webp: ramsesmironWEBP,
+              png: juliusomoPNG,
+              webp: juliusomoWEBP,
             },
             username: "juliusomo",
           },

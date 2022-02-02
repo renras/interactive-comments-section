@@ -1,4 +1,5 @@
 import Comment from "./Comment";
+import RepliesContainer from "./RepliesContainer";
 
 interface Props {
   comments: {
@@ -33,8 +34,13 @@ interface Props {
 const CommentsContainer = ({ comments }: Props) => {
   return (
     <div className="flex flex-col gap-4">
-      {comments.map((comment) => {
-        return <Comment key={comment.id} comment={comment} />;
+      {comments.map((comment, index) => {
+        return (
+          <div className="flex flex-col gap-4" key={index}>
+            <Comment comment={comment} />
+            <RepliesContainer replies={comment.replies} />
+          </div>
+        );
       })}
     </div>
   );

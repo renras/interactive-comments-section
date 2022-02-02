@@ -16,7 +16,7 @@ interface Props {
       };
       username: string;
     };
-    replies: {
+    replies?: {
       id: number;
       content: string;
       createdAt: string;
