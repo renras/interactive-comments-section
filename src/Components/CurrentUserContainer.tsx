@@ -1,5 +1,6 @@
 import Button from "./Button";
 import Avatar from "./Avatar";
+import TextArea from "./TextArea";
 
 interface Props {
   currentUser: {
@@ -19,11 +20,7 @@ const CurrentUserContainer = ({ currentUser }: Props) => {
         src={currentUser.image.png}
         alt="current-user-avatar"
       />
-      <textarea
-        className="py-2 px-5 col-span-2 resize-none rounded-lg border-solid border-2 border-very-light-gray"
-        rows={3}
-        placeholder="Add a comment..."
-      ></textarea>
+      <TextArea className="col-span-2" placeholder="Add a comment..." />
       <Button className="justify-self-end">SEND</Button>
     </form>
   );
