@@ -1,19 +1,11 @@
 import data from "./data";
 import CurrentUserContainer from "./Components/CurrentUserContainer";
 
-interface CurrentUser {
-  image: {
-    png: string;
-    webp: string;
-  };
-  username: string;
-}
-
 function App() {
-  const currentUser: CurrentUser = data.currentUser;
+  const currentUser = data.currentUser;
 
   return (
-    <div className="App">
+    <div className="py-6 px-3 bg-light-gray">
       <CurrentUserContainer currentUser={currentUser} />
     </div>
   );
