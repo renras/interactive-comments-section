@@ -38,7 +38,9 @@ const CommentsContainer = ({ comments }: Props) => {
         return (
           <div className="flex flex-col gap-4" key={index}>
             <Comment comment={comment} />
-            <RepliesContainer replies={comment.replies} />
+            {comment.replies.length > 0 && (
+              <RepliesContainer replies={comment.replies} />
+            )}
           </div>
         );
       })}

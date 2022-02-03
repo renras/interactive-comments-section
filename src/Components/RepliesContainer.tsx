@@ -19,7 +19,7 @@ interface Props {
 
 const RepliesContainer = ({ replies }: Props) => {
   return (
-    <div className="flex flex-col gap-4 px-3 border-l-2 border-light-grayish-blue/40">
+    <div className="flex flex-col gap-4 pl-3 border-l-2 border-light-grayish-blue/40">
       {replies.map((reply) => {
         return <Comment key={reply.id} comment={reply} />;
       })}
