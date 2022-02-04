@@ -1,43 +1,20 @@
 import Comment from "./Comment";
 import RepliesContainer from "./RepliesContainer";
+import { CommentsState } from "../store/app-context";
 
-interface Props {
-  comments: {
-    id: number;
-    content: string;
-    createdAt: string;
-    score: number;
-    user: {
-      image: {
-        png: string;
-        webp: string;
-      };
-      username: string;
-    };
-    replies: {
-      id: number;
-      content: string;
-      createdAt: string;
-      score: number;
-      replyingTo: string;
-      user: {
-        image: {
-          png: string;
-          webp: string;
-        };
-        username: string;
-      };
-    }[];
-  }[];
-}
-
-const CommentsContainer = ({ comments }: Props) => {
+const CommentsContainer = ({ comments }: { comments: CommentsState }) => {
   return (
     <div className="flex flex-col gap-4">
       {comments.map((comment, index) => {
         return (
           <div className="flex flex-col gap-4" key={index}>
-            <Comment comment={comment} />
+            <Comment
+              image={comment.user.image.png}
+              username={comment.user.username}
+              dateCreated={comment.createdAt}
+              content={comment.content}
+              score={comment.score}
+            />
             {comment.replies.length > 0 && (
               <RepliesContainer replies={comment.replies} />
             )}

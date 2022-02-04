@@ -18,6 +18,8 @@ const initialState = {
 };
 
 type InitialState = typeof initialState;
+export type CommentsState = typeof initialState.comments;
+export type CurrentUserState = typeof initialState.currentUser;
 
 const reducer = (state: InitialState, action: Action) => {
   const { type, payload } = action;
@@ -25,7 +27,7 @@ const reducer = (state: InitialState, action: Action) => {
     case "SET_COMMENTS":
       return {
         ...state,
-        comments: { ...state.comments, payload },
+        comments: [...state.comments, payload],
       };
     default:
       return state;
@@ -35,11 +37,7 @@ const reducer = (state: InitialState, action: Action) => {
 export const AppContextProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const addCommentHandler = (
-    e: React.FormEvent<HTMLFormElement>,
-    content: string
-  ) => {
-    e.preventDefault();
+  const addCommentHandler = (content: string | null) => {
     dispatch({
       type: ActionTypes.SET_COMMENTS,
       payload: {
@@ -59,8 +57,22 @@ export const AppContextProvider = ({ children }: any) => {
     });
   };
 
+  const onSubmitHandler = (
+    e: React.FormEvent<HTMLFormElement>,
+    formRef: HTMLFormElement | null
+  ) => {
+    e.preventDefault();
+    if (formRef) {
+      let formData = new FormData(formRef);
+      let textAreaValue = formData.get("textArea");
+      if (textAreaValue) textAreaValue = textAreaValue.toString();
+      addCommentHandler(textAreaValue);
+      formRef.reset();
+    }
+  };
+
   return (
-    <AppContext.Provider value={{ state, dispatch, addCommentHandler }}>
+    <AppContext.Provider value={{ state, dispatch, onSubmitHandler }}>
       {children}
     </AppContext.Provider>
   );

@@ -10,7 +10,10 @@ function App() {
   return (
     <div className="flex flex-col gap-4 py-6 px-3 bg-light-gray">
       <CommentsContainer comments={appContext.state.comments} />
-      <CurrentUserContainer currentUser={appContext.state.currentUser} />
+      <CurrentUserContainer
+        avatar={appContext.state.currentUser.image.png}
+        onSubmitHandler={appContext.onSubmitHandler}
+      />
     </div>
   );
 }
