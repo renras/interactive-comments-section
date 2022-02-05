@@ -12,7 +12,7 @@ function App() {
       <CommentsContainer comments={appContext.state.comments} />
       <CurrentUserContainer
         avatar={appContext.state.currentUser.image.png}
-        onSubmitHandler={appContext.onSubmitHandler}
+        onSubmitHandler={appContext.addComment}
       />
     </div>
   );

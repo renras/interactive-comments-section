@@ -5,6 +5,7 @@ const AppContext: React.Context<any | null> = React.createContext(null);
 
 enum ActionTypes {
   SET_COMMENTS = "SET_COMMENTS",
+  SET_REPLIES = "SET_REPLIES",
 }
 
 type Action = {
@@ -37,42 +38,40 @@ const reducer = (state: InitialState, action: Action) => {
 export const AppContextProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const addCommentHandler = (content: string | null) => {
-    dispatch({
-      type: ActionTypes.SET_COMMENTS,
-      payload: {
-        id: state.comments.length + 1,
-        content: content,
-        createdAt: "Just now",
-        score: 0,
-        user: {
-          image: {
-            png: state.currentUser.image.png,
-            webp: state.currentUser.image.webp,
-          },
-          username: state.currentUser.username,
-        },
-        replies: [],
-      },
-    });
-  };
-
-  const onSubmitHandler = (
+  const addComment = (
     e: React.FormEvent<HTMLFormElement>,
     formRef: HTMLFormElement | null
   ) => {
     e.preventDefault();
     if (formRef) {
+      // get the value of text field from the from
       let formData = new FormData(formRef);
       let textAreaValue = formData.get("textArea");
       if (textAreaValue) textAreaValue = textAreaValue.toString();
-      addCommentHandler(textAreaValue);
+
+      dispatch({
+        type: ActionTypes.SET_COMMENTS,
+        payload: {
+          id: state.comments.length + 1,
+          content: textAreaValue,
+          createdAt: "Just now",
+          score: 0,
+          user: {
+            image: {
+              png: state.currentUser.image.png,
+              webp: state.currentUser.image.webp,
+            },
+            username: state.currentUser.username,
+          },
+          replies: [],
+        },
+      });
       formRef.reset();
     }
   };
 
   return (
-    <AppContext.Provider value={{ state, dispatch, onSubmitHandler }}>
+    <AppContext.Provider value={{ state, dispatch, addComment }}>
       {children}
     </AppContext.Provider>
   );
