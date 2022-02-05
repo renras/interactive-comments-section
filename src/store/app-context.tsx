@@ -20,6 +20,7 @@ const initialState = {
 
 type InitialState = typeof initialState;
 export type CommentsState = typeof initialState.comments;
+type CommentState = typeof initialState.comments[0];
 export type CurrentUserState = typeof initialState.currentUser;
 
 const reducer = (state: InitialState, action: Action) => {
@@ -29,6 +30,16 @@ const reducer = (state: InitialState, action: Action) => {
       return {
         ...state,
         comments: [...state.comments, payload],
+      };
+    case "SET_REPLIES":
+      return {
+        ...state,
+        comments: state.comments.map((comment) => {
+          if (comment.id === payload.commentID) {
+            return { ...comment, replies: [...comment.replies, payload.reply] };
+          }
+          return comment;
+        }),
       };
     default:
       return state;

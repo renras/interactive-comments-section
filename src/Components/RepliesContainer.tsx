@@ -30,6 +30,7 @@ const RepliesContainer = ({ replies }: Props) => {
             content={reply.content}
             replyingTo={reply.replyingTo}
             score={reply.score}
+            id={reply.id}
           />
         );
       })}

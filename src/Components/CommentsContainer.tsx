@@ -14,6 +14,7 @@ const CommentsContainer = ({ comments }: { comments: CommentsState }) => {
               dateCreated={comment.createdAt}
               content={comment.content}
               score={comment.score}
+              id={comment.id}
             />
             {comment.replies.length > 0 && (
               <RepliesContainer replies={comment.replies} />

@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import AppContext from "../store/app-context";
+import { v4 as uuidv4 } from "uuid";
 
 import Avatar from "./Avatar";
 import ButtonGroup from "./ButtonGroup";
@@ -15,6 +16,7 @@ interface Props {
   content: string;
   replyingTo?: string;
   score: number;
+  id: number;
 }
 
 const Comment = ({
@@ -24,24 +26,52 @@ const Comment = ({
   content,
   replyingTo,
   score,
+  id,
 }: Props) => {
   const [isReplying, setIsReplying] = useState(false);
   const appContext = useContext(AppContext);
 
   const clickHandler = () => {
     setIsReplying(!isReplying);
-    console.log("Clicked!");
   };
 
   const onSubmitHandler = (
     e: React.FormEvent<HTMLFormElement>,
     formRef: HTMLFormElement | null
   ) => {
-    appContext.submitForm({ e, formRef, actionType: "SET_REPLIES" });
+    e.preventDefault();
+    if (formRef) {
+      // get the value of text field from the from
+      let formData = new FormData(formRef);
+      let textAreaValue = formData.get("textArea");
+      if (textAreaValue) textAreaValue = textAreaValue.toString();
+
+      appContext.dispatch({
+        type: "SET_REPLIES",
+        payload: {
+          commentID: id,
+          reply: {
+            id: uuidv4(),
+            content: textAreaValue,
+            createdAt: "Just Now",
+            score: 0,
+            replyingTo: username,
+            user: {
+              image: {
+                png: appContext.state.currentUser.image.png,
+                webp: appContext.state.currentUser.image.png,
+              },
+              username: appContext.state.currentUser.username,
+            },
+          },
+        },
+      });
+    }
+    setIsReplying(false);
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <div className="grid grid-cols-2 gap-y-4 bg-white p-3 rounded-lg">
         <div className="flex gap-4 col-span-2">
           <Avatar src={image} alt="avatar" />
