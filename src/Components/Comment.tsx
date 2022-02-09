@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import AppContext from "../store/app-context";
-import { v4 as uuidv4 } from "uuid";
 
 import Avatar from "./Avatar";
 import ButtonGroup from "./ButtonGroup";
@@ -16,7 +15,10 @@ interface Props {
   content: string;
   replyingTo?: string;
   score: number;
-  id: number;
+  replyHandler: (
+    e: React.FormEvent<HTMLFormElement>,
+    formRef: HTMLFormElement | null
+  ) => any;
 }
 
 const Comment = ({
@@ -26,7 +28,7 @@ const Comment = ({
   content,
   replyingTo,
   score,
-  id,
+  replyHandler,
 }: Props) => {
   const [isReplying, setIsReplying] = useState(false);
   const appContext = useContext(AppContext);
@@ -39,34 +41,7 @@ const Comment = ({
     e: React.FormEvent<HTMLFormElement>,
     formRef: HTMLFormElement | null
   ) => {
-    e.preventDefault();
-    if (formRef) {
-      // get the value of text field from the from
-      let formData = new FormData(formRef);
-      let textAreaValue = formData.get("textArea");
-      if (textAreaValue) textAreaValue = textAreaValue.toString();
-
-      appContext.dispatch({
-        type: "SET_REPLIES",
-        payload: {
-          commentID: id,
-          reply: {
-            id: uuidv4(),
-            content: textAreaValue,
-            createdAt: "Just Now",
-            score: 0,
-            replyingTo: username,
-            user: {
-              image: {
-                png: appContext.state.currentUser.image.png,
-                webp: appContext.state.currentUser.image.png,
-              },
-              username: appContext.state.currentUser.username,
-            },
-          },
-        },
-      });
-    }
+    replyHandler(e, formRef);
     setIsReplying(false);
   };
 
@@ -92,7 +67,7 @@ const Comment = ({
       {isReplying && (
         <CurrentUserContainer
           avatar={appContext.state.currentUser.image.png}
-          onSubmitHandler={onSubmitHandler}
+          onSubmitHandler={(e, formRef) => onSubmitHandler(e, formRef)}
         />
       )}
     </div>
