@@ -16,6 +16,8 @@ interface Props {
   content: string;
   replyingTo?: string;
   score: number;
+  commentID: number;
+  replyID?: number;
   replyHandler: (
     e: React.FormEvent<HTMLFormElement>,
     formRef: HTMLFormElement | null
@@ -29,6 +31,8 @@ const Comment = ({
   content,
   replyingTo,
   score,
+  replyID,
+  commentID,
   replyHandler,
 }: Props) => {
   const [isReplying, setIsReplying] = useState(false);
@@ -46,6 +50,16 @@ const Comment = ({
     setIsReplying(false);
   };
 
+  const deleteHandler = () => {
+    appContext.dispatch({
+      type: "DELETE_REPLY",
+      payload: {
+        commentID: commentID,
+        replyID: replyID,
+      },
+    });
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="grid grid-cols-2 gap-y-4 bg-white p-3 rounded-lg">
@@ -57,7 +71,7 @@ const Comment = ({
         <Message message={content} replyingTo={replyingTo} />
         <ButtonGroup score={score} className="col-span-1 justify-self-start" />
         {appContext.state.currentUser.username === username ? (
-          <IconGroup />
+          <IconGroup deleteHandler={deleteHandler} />
         ) : (
           <ButtonWithIcon
             src={replyIcon}

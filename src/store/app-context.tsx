@@ -6,6 +6,7 @@ const AppContext: React.Context<any | null> = React.createContext(null);
 enum ActionTypes {
   SET_COMMENTS = "SET_COMMENTS",
   SET_REPLIES = "SET_REPLIES",
+  DELETE_REPLY = "DELETE_REPLY",
 }
 
 type Action = {
@@ -37,6 +38,21 @@ const reducer = (state: InitialState, action: Action) => {
         comments: state.comments.map((comment) => {
           if (comment.id === payload.commentID) {
             return { ...comment, replies: [...comment.replies, payload.reply] };
+          }
+          return comment;
+        }),
+      };
+    case "DELETE_REPLY":
+      return {
+        ...state,
+        comments: state.comments.map((comment) => {
+          if (comment.id === payload.commentID) {
+            return {
+              ...comment,
+              replies: comment.replies.filter(
+                (reply) => reply.id !== payload.replyID
+              ),
+            };
           }
           return comment;
         }),

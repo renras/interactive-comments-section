@@ -51,6 +51,7 @@ const CommentsContainer = ({ comments }: { comments: CommentsState }) => {
         return (
           <div className="flex flex-col gap-4" key={index}>
             <Comment
+              commentID={comment.id}
               image={comment.user.image.png}
               username={comment.user.username}
               dateCreated={comment.createdAt}

@@ -65,6 +65,8 @@ const RepliesContainer = ({ replies, commentId }: Props) => {
         return (
           <Comment
             key={reply.id}
+            commentID={commentId}
+            replyID={reply.id}
             image={reply.user.image.png}
             username={reply.user.username}
             dateCreated={reply.createdAt}
