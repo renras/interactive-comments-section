@@ -21,7 +21,6 @@ const initialState = {
 
 type InitialState = typeof initialState;
 export type CommentsState = typeof initialState.comments;
-type CommentState = typeof initialState.comments[0];
 export type CurrentUserState = typeof initialState.currentUser;
 
 const reducer = (state: InitialState, action: Action) => {

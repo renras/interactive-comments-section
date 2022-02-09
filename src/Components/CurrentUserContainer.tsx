@@ -6,13 +6,18 @@ import TextArea from "./TextArea";
 
 interface Props {
   avatar: string;
+  replyingTo?: string;
   onSubmitHandler: (
     e: React.FormEvent<HTMLFormElement>,
     formRef: HTMLFormElement | null
   ) => void;
 }
 
-const CurrentUserContainer = ({ avatar, onSubmitHandler }: Props) => {
+const CurrentUserContainer = ({
+  avatar,
+  onSubmitHandler,
+  replyingTo,
+}: Props) => {
   const formRef = useRef<HTMLFormElement>(null);
 
   return (
@@ -26,6 +31,7 @@ const CurrentUserContainer = ({ avatar, onSubmitHandler }: Props) => {
         className="col-span-2"
         placeholder="Add a comment..."
         textAreaName="textArea"
+        replyingTo={replyingTo}
       />
       <Button className="justify-self-end">SEND</Button>
     </form>

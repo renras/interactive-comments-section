@@ -12,8 +12,7 @@ const CommentsContainer = ({ comments }: { comments: CommentsState }) => {
   const replyHandler = (
     e: React.FormEvent<HTMLFormElement>,
     formRef: HTMLFormElement | null,
-    id: number,
-    username: string
+    id: number
   ) => {
     e.preventDefault();
     if (formRef) {
@@ -31,7 +30,6 @@ const CommentsContainer = ({ comments }: { comments: CommentsState }) => {
             content: textAreaValue,
             createdAt: "Just Now",
             score: 0,
-            replyingTo: username,
             user: {
               image: {
                 png: appContext.state.currentUser.image.png,
@@ -58,7 +56,7 @@ const CommentsContainer = ({ comments }: { comments: CommentsState }) => {
               content={comment.content}
               score={comment.score}
               replyHandler={(e, formRef) =>
-                replyHandler(e, formRef, comment.id, comment.user.username)
+                replyHandler(e, formRef, comment.id)
               }
             />
             {comment.replies.length > 0 && (

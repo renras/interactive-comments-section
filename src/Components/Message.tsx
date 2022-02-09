@@ -9,7 +9,7 @@ const Message = ({ message, replyingTo }: Props) => {
       {replyingTo && (
         <span className="text-moderate-blue font-medium">@{replyingTo}</span>
       )}{" "}
-      {message}
+      <span>{message}</span>
     </p>
   );
 };

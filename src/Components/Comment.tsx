@@ -60,6 +60,10 @@ const Comment = ({
     });
   };
 
+  const editHandler = () => {
+    console.log("edit");
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="grid grid-cols-2 gap-y-4 bg-white p-3 rounded-lg">
@@ -71,7 +75,7 @@ const Comment = ({
         <Message message={content} replyingTo={replyingTo} />
         <ButtonGroup score={score} className="col-span-1 justify-self-start" />
         {appContext.state.currentUser.username === username ? (
-          <IconGroup deleteHandler={deleteHandler} />
+          <IconGroup deleteHandler={deleteHandler} editHandler={editHandler} />
         ) : (
           <ButtonWithIcon
             src={replyIcon}
@@ -87,6 +91,7 @@ const Comment = ({
         <CurrentUserContainer
           avatar={appContext.state.currentUser.image.png}
           onSubmitHandler={(e, formRef) => onSubmitHandler(e, formRef)}
+          replyingTo={username}
         />
       )}
     </div>
