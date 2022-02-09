@@ -2,18 +2,18 @@ interface Props {
   src: string;
   alt: string;
   text: string;
-  color?: string;
   className?: string;
-  clickHandler: () => any;
+  textStyle?: string;
+  clickHandler?: () => any;
 }
 
 const ButtonWithIcon = ({
   src,
   alt,
   text,
-  color,
   className,
   clickHandler,
+  textStyle,
 }: Props) => {
   return (
     <button
@@ -21,7 +21,7 @@ const ButtonWithIcon = ({
       onClick={clickHandler}
     >
       <img src={src} alt={alt} />
-      <p className={`text-${color} font-medium text-lg`}>{text}</p>
+      <p className={textStyle}>{text}</p>
     </button>
   );
 };
