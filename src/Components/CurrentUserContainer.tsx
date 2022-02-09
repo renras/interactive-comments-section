@@ -6,6 +6,7 @@ import TextArea from "./TextArea";
 
 interface Props {
   avatar: string;
+  className?: string;
   replyingTo?: string;
   onSubmitHandler: (
     e: React.FormEvent<HTMLFormElement>,
@@ -17,13 +18,14 @@ const CurrentUserContainer = ({
   avatar,
   onSubmitHandler,
   replyingTo,
+  className,
 }: Props) => {
   const formRef = useRef<HTMLFormElement>(null);
 
   return (
     <form
       ref={formRef}
-      className="grid grid-cols-2 gap-y-5 items-center bg-white rounded-lg p-3"
+      className={`grid grid-cols-2 gap-y-5 items-center bg-white rounded-lg p-3 ${className}`}
       onSubmit={(e) => onSubmitHandler(e, formRef.current)}
     >
       <Avatar className="row-start-2" src={avatar} alt="current-user-avatar" />

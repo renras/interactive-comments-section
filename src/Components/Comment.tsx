@@ -88,11 +88,18 @@ const Comment = ({
         )}
       </div>
       {isReplying && (
-        <CurrentUserContainer
-          avatar={appContext.state.currentUser.image.png}
-          onSubmitHandler={(e, formRef) => onSubmitHandler(e, formRef)}
-          replyingTo={username}
-        />
+        <>
+          <div
+            className="fixed top-0 left-0 h-full w-full z-0"
+            onClick={() => setIsReplying(false)}
+          ></div>
+          <CurrentUserContainer
+            avatar={appContext.state.currentUser.image.png}
+            onSubmitHandler={(e, formRef) => onSubmitHandler(e, formRef)}
+            replyingTo={username}
+            className="z-10"
+          />
+        </>
       )}
     </div>
   );
