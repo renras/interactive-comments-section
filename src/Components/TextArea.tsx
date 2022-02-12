@@ -21,8 +21,7 @@ const TextArea = ({
 
     const focusTextArea = () => {
       if (textareaRef.current) {
-        textareaRef.current.selectionStart =
-          textareaRef.current.value.length + 10;
+        textareaRef.current.selectionStart = textareaRef.current.value.length;
         textareaRef.current.focus();
       }
     };

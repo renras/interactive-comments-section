@@ -8,6 +8,8 @@ import replyIcon from "../Assets/images/icon-reply.svg";
 import Message from "./Message";
 import CurrentUserContainer from "./CurrentUserContainer";
 import IconGroup from "./IconGroup";
+import EditInput from "./EditInput";
+import Button from "./Button";
 
 interface Props {
   image: string;
@@ -22,6 +24,7 @@ interface Props {
     e: React.FormEvent<HTMLFormElement>,
     formRef: HTMLFormElement | null
   ) => any;
+  editReply?: (content: string, commentId: number, replyId: number) => void;
 }
 
 const Comment = ({
@@ -34,8 +37,11 @@ const Comment = ({
   replyID,
   commentID,
   replyHandler,
+  editReply,
 }: Props) => {
   const [isReplying, setIsReplying] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [message, setMessage] = useState("");
   const appContext = useContext(AppContext);
 
   const clickHandler = () => {
@@ -61,7 +67,20 @@ const Comment = ({
   };
 
   const editHandler = () => {
-    console.log("edit");
+    setIsEditing(!isEditing);
+  };
+
+  const getText = (text: string) => {
+    setMessage(text);
+  };
+
+  const getEditInputText = (text: string) => {
+    setMessage(text);
+  };
+
+  const update = () => {
+    if (editReply && replyID) editReply(message, commentID, replyID);
+    setIsEditing(false);
   };
 
   return (
@@ -72,11 +91,23 @@ const Comment = ({
           <p className="font-medium text-dark-blue">{username}</p>
           <p className="text-grayish-blue">{dateCreated}</p>
         </div>
-        <Message message={content} replyingTo={replyingTo} />
-        <ButtonGroup score={score} className="col-span-1 justify-self-start" />
-        {appContext.state.currentUser.username === username ? (
-          <IconGroup deleteHandler={deleteHandler} editHandler={editHandler} />
+        {isEditing ? (
+          <EditInput
+            defaultValue={message}
+            getEditInputText={(text) => getEditInputText(text)}
+          />
         ) : (
+          <Message
+            message={content}
+            replyingTo={replyingTo}
+            getText={getText}
+          />
+        )}
+        <ButtonGroup score={score} className="col-span-1 justify-self-start" />
+        {appContext.state.currentUser.username === username && !isEditing && (
+          <IconGroup deleteHandler={deleteHandler} editHandler={editHandler} />
+        )}
+        {appContext.state.currentUser.username !== username && !isEditing && (
           <ButtonWithIcon
             src={replyIcon}
             alt="reply-icon"
@@ -85,6 +116,20 @@ const Comment = ({
             className="col-span-1 justify-self-end"
             clickHandler={clickHandler}
           />
+        )}
+        {isEditing && (
+          <>
+            <div
+              className="fixed top-0 left-0 h-full w-full z-0"
+              onClick={() => setIsEditing(false)}
+            ></div>
+            <Button
+              className="col-span-1 justify-self-end z-10"
+              clickHandler={update}
+            >
+              UPDATE
+            </Button>
+          </>
         )}
       </div>
       {isReplying && (

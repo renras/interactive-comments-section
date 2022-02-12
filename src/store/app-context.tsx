@@ -7,6 +7,7 @@ enum ActionTypes {
   SET_COMMENTS = "SET_COMMENTS",
   SET_REPLIES = "SET_REPLIES",
   DELETE_REPLY = "DELETE_REPLY",
+  EDIT_REPLY = "EDIT_REPLY",
 }
 
 type Action = {
@@ -51,6 +52,28 @@ const reducer = (state: InitialState, action: Action) => {
               replies: comment.replies.filter(
                 (reply) => reply.id !== payload.replyID
               ),
+            };
+          }
+          return comment;
+        }),
+      };
+    case "EDIT_REPLY":
+      return {
+        ...state,
+        comments: state.comments.map((comment) => {
+          if (comment.id === payload.commentID) {
+            return {
+              ...comment,
+              replies: comment.replies.map((reply) => {
+                if (reply.id === payload.replyID) {
+                  return {
+                    ...reply,
+                    content: payload.content,
+                    replyingTo: "",
+                  };
+                }
+                return reply;
+              }),
             };
           }
           return comment;

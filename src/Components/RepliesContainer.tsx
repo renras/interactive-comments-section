@@ -59,6 +59,18 @@ const RepliesContainer = ({ replies, commentId }: Props) => {
     }
   };
 
+  // make a function for editing reply dispatch app context
+  const editReply = (content: string, commentId: number, replyId: number) => {
+    appContext.dispatch({
+      type: "EDIT_REPLY",
+      payload: {
+        commentID: commentId,
+        replyID: replyId,
+        content,
+      },
+    });
+  };
+
   return (
     <div className="flex flex-col gap-4 pl-3 border-l-2 border-light-grayish-blue/40">
       {replies.map((reply) => {
@@ -75,6 +87,9 @@ const RepliesContainer = ({ replies, commentId }: Props) => {
             score={reply.score}
             replyHandler={(e, formRef) =>
               replyHandler(e, formRef, reply.user.username)
+            }
+            editReply={(message, commentID, replyID) =>
+              editReply(message, commentID, replyID)
             }
           />
         );
