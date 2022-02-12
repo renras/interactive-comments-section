@@ -17,7 +17,7 @@ const ButtonWithIcon = ({
 }: Props) => {
   return (
     <button
-      className={`inline-flex gap-3 items-center ${className}`}
+      className={`inline-flex gap-3 items-center ${className} hover:opacity-60`}
       onClick={clickHandler}
     >
       <img src={src} alt={alt} />

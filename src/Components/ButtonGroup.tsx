@@ -46,16 +46,16 @@ const ButtonGroup = ({ score, className }: Props) => {
       className={`inline-flex bg-light-grayish-blue/10 rounded-lg ${className}`}
     >
       <button
-        className="py-2 px-3 text-light-grayish-blue/90 text-xl"
+        className="py-2 px-3 opacity-30 hover:opacity-100"
         onClick={incrementHandler}
       >
-        <img src={plusIcon} alt="minus-icon" />
+        <img src={plusIcon} alt="plus-icon" />
       </button>
       <p className="py-2 px-2 text-moderate-blue font-medium text-xl">
         {value}
       </p>
       <button
-        className="py-2 px-3 text-light-grayish-blue/90 text-xl"
+        className="py-2 px-3 opacity-30 hover:opacity-100"
         onClick={decrementHandler}
       >
         <img src={minusIcon} alt="minus-icon" />
